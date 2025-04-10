@@ -1,0 +1,22 @@
+services:
+  fake-ec2:
+    container_name: fake-ec2
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    volumes:
+      - ./init.sh:/init.sh
+    entrypoint: ["/bin/sh", "/init.sh"]
+    environment:
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+      - AWS_REGION=us-east-1
+    networks:
+      - localstack_localstack_default
+    restart: unless-stopped
+
+networks:
+  localstack_localstack_default:
+    external: true
