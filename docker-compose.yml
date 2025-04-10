@@ -8,6 +8,8 @@ services:
       - "8080:80"
     volumes:
       - ./init.sh:/init.sh
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./.htpasswd:/etc/nginx/.htpasswd
     entrypoint: ["/bin/sh", "/init.sh"]
     environment:
       - AWS_ACCESS_KEY_ID=test
